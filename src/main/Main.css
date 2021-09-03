@@ -1,0 +1,26 @@
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.main__card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    padding: 20px 10px;
+    width: 200px;
+    background-color: #f1f1f1;
+    transition: all .3s ease-in-out;
+}
+
+.main__card-img {
+    align-self: center;
+}
+
+.main__card:hover {
+    cursor: pointer;
+    box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
+}
+

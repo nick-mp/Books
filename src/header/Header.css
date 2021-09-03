@@ -1,0 +1,39 @@
+
+.container {
+    height: 160px;
+    background-image: url('../img/backGrnd-header.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+.header {
+    margin: 0 auto;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+.header__title {
+    font-size: 24px;
+    color: white;
+}
+
+.header__search {
+    margin-bottom: 15px;
+    width: 300px;
+    background-image: url('../img/icon/search.svg');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 15px;
+}
+
+.header__choice {
+    margin: 0 10px;
+    font-size: 12px;
+    line-height: 1em;
+    color: rgb(100, 100, 100);
+    cursor: pointer;
+}
+
+.header__choice-name {
+    color: white;
+}
