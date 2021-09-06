@@ -2,7 +2,7 @@ import './App.css';
 import Header from './header/Header';
 import Main from './main/Main';
 import Result from './result/Result';
-import Book from './book/Book';
+//import Book from './book/Book';
 
 
 
@@ -14,7 +14,7 @@ function App() {
         <Header />
         <Result />
         <Main />
-        <Book />
+        {/* <Book /> */}
     </div>
   );
 }

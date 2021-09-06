@@ -14,12 +14,12 @@ export default function Main() {
         );}
     else return (
         <div className="main">
-            {booksOut.payload.map(item => (
-                <div className="main__card">
-                    <img src={item.imageLinks.smallThumbnail} alt="" />                    
-                    <p>{item.title}</p>
-                    <p>{item.categories}</p>
-                    <p>{item.authors}</p>
+            {booksOut.payload.map((item, index) => (
+                <div className="main__card" key={index}>
+                    <img src={item.imageLinks.smallThumbnail} alt="icon books"/>                    
+                    <p className="main__card-cat">{item.categories}</p>
+                    <p className="main__card-title">{item.title}</p>
+                    <p className="main__card-authors">{item.authors}</p>
                 </div>
             ))}
         </div> 

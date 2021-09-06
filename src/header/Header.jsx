@@ -7,15 +7,18 @@ import { add } from '../store/booksSlice';
 
 export default function Header() {
     const inputSearch = useRef('');
+    const orderBy = useRef();
     const toStore = [];
     const dispatch = useDispatch();
+    let orderByOut = 'relevance'
+
 
     function fetchHandler(event) {
         event.preventDefault();
         console.log('work');
         if (inputSearch.current.value.length === 0) alert('Write something!')
 
-         fetch(`https://www.googleapis.com/books/v1/volumes?q=quilting?=${inputSearch.current.value}`)
+         fetch(`https://www.googleapis.com/books/v1/volumes?q=quilting?=${inputSearch.current.value}&orderBy?=${orderByOut}&subject?=history`)
         .then((data) => data.text())
         .then(data => {
             const bookResponse = JSON.parse(data)
@@ -32,7 +35,10 @@ export default function Header() {
         });
     }
 
-
+    function sortingHandler () {
+        if (orderBy.current.options.selectedIndex === 1) orderByOut = 'newest';
+        else   orderByOut = 'relevance';
+    }
 
     return (
         <div className="container">
@@ -53,7 +59,7 @@ export default function Header() {
                         <option value="">poetry</option>
                     </select>
                     <span className="header__choice-name">Sorting by</span>
-                    <select className="header__choice" name="categories" id="2">
+                    <select className="header__choice" ref={orderBy} onChange={sortingHandler} name="categories" id="2">
                         <option value="">relevance</option>
                         <option value="">newest</option>
                     </select>
