@@ -1,9 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import booksArr from '../data/books.json';
 
-export const booksSlice = createSlice({
-    name : 'book',
-    initialState : {
-        books : booksArr
+export const taskReducerSlice = createSlice({
+  name: 'book',
+  initialState: {
+    value: []    
+  },
+  reducers: {
+    add: (state, data) => {
+      state.value = data;
     }
-})
+  }
+});
+
+export const { add } = taskReducerSlice.actions;
+
+export const selectValue = state => state.taskReducer.value;
+
+export default taskReducerSlice.reducer;

@@ -1,8 +1,13 @@
 import './Book.css';
+//import { useSelector } from 'react-redux';
+//import {selectValue} from '../store/booksSlice'
 
 export default function Book() {
+    //const booksOut = useSelector(selectValue) // получаем данные из store
+
     return (
         <>
+        
             <span>Назад</span>
             <div className="book">
                 <div className="book__img">

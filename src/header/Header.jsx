@@ -1,9 +1,14 @@
 import './Header.css';
 import React from 'react';
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { add } from '../store/booksSlice';
+
 
 export default function Header() {
     const inputSearch = useRef('');
+    const toStore = [];
+    const dispatch = useDispatch();
 
     function fetchHandler(event) {
         event.preventDefault();
@@ -13,10 +18,18 @@ export default function Header() {
          fetch(`https://www.googleapis.com/books/v1/volumes?q=quilting?=${inputSearch.current.value}`)
         .then((data) => data.text())
         .then(data => {
-            console.log(data); 
-        })
-        
-
+            const bookResponse = JSON.parse(data)
+            let out = [];
+            for (let key in bookResponse.items) {
+                out.push(bookResponse.items)
+            }
+            for (let i in out) {
+                for (let k in out[i]) {
+                    toStore.push(out[i][k].volumeInfo)
+                }
+            }
+            dispatch(add(toStore))
+        });
     }
 
 
@@ -26,7 +39,7 @@ export default function Header() {
             <div className="header">
                 <form action="">
                     <h2 className="header__title">Search for books</h2>
-                    <input type="text" className="header__search" placeholder="some title" ref={inputSearch}/>
+                    <input type="text" defaultValue = "dogs" className="header__search" placeholder="some title" ref={inputSearch}/>
                     <button type="submit" className="header__btn-search" onClick={fetchHandler}>Search</button>    
                     <div>
                     <span className="header__choice-name">Categories</span>
