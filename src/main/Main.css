@@ -1,3 +1,10 @@
+.main__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
 .main {
     display: flex;
     flex-wrap: wrap;
@@ -17,10 +24,6 @@
     transition: all .3s ease-in-out;
 }
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* .main__card:nth-child(8) {
-    margin-right: 0;
-} */
 
 
 .main__card > img {
@@ -46,3 +49,8 @@
     padding-top: 100px;
 
 }
+
+.main__btn-more {
+    display: block;
+    color: rgb(100, 100, 100);
+  }

@@ -28,7 +28,6 @@ export default function Header() {
             const books = items.map(({volumeInfo: item, id, selfLink}) => {return {item, id, selfLink}});
             const {totalItems} = JSON.parse(data);
             dispatch(count(totalItems))
-
             dispatch(load(false))
             dispatch(add(books))
 

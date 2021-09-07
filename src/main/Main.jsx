@@ -16,17 +16,19 @@ export default function Main() {
                 <Loader type="Grid" color="blue" height={100} width={100}/>
             </div>)}
         else return (
-            <div className="main">
-                {booksOut.payload.map(({item, id, selfLink}) => (
-                    <div className="main__card" key={id}>
-                        
-                        <img src={item.imageLinks?.smallThumbnail} alt="icon books"/>
-                        <p className="main__card-cat">{item.categories}</p>
-                        <b className="main__card-title">{item.title}</b>
-                        <p className="main__card-authors">{item.authors}</p>
-                    </div>
-                ))}
-            </div> 
+            <div className="main__container">
+                <div className="main">
+                    {booksOut.payload.map(({item, id, selfLink}) => (
+                        <div className="main__card" key={id}>
+                            <img src={item.imageLinks?.smallThumbnail} alt="icon books"/>
+                            <p className="main__card-cat">{item.categories}</p>
+                            <b className="main__card-title">{item.title}</b>
+                            <p className="main__card-authors">{item.authors}</p>
+                        </div>
+                    ))}
+                </div>
+                <button className="main__btn-more" onClick = {() => {console.log('hi')}}>Load more</button>
+            </div>
             
     );}
     
