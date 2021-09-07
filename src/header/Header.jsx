@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { add } from '../store/booksSlice';
 import { load } from '../store/loadingSlice';
+import { count } from '../store/resultSlice';
 
 
 export default function Header() {
@@ -20,11 +21,14 @@ export default function Header() {
         console.log('work');
         if (inputSearch.current.value.length === 0) alert('Write something!')
 
-         fetch(`https://www.googleapis.com/books/v1/volumes?q=${inputSearch.current.value}&orderBy=${orderByOut}`)
+         fetch(`https://www.googleapis.com/books/v1/volumes?q=${inputSearch.current.value}&orderBy=${orderByOut}&maxResults=30`)
         .then((data) => data.text())
         .then(data => {
             const {items} = JSON.parse(data);
             const books = items.map(({volumeInfo: item, id, selfLink}) => {return {item, id, selfLink}});
+            const {totalItems} = JSON.parse(data);
+            dispatch(count(totalItems))
+
             dispatch(load(false))
             dispatch(add(books))
 
