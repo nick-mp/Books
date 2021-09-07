@@ -8,7 +8,6 @@ import { add } from '../store/booksSlice';
 export default function Header() {
     const inputSearch = useRef('');
     const orderBy = useRef();
-    const toStore = [];
     const dispatch = useDispatch();
     let orderByOut = 'relevance'
 
@@ -18,20 +17,12 @@ export default function Header() {
         console.log('work');
         if (inputSearch.current.value.length === 0) alert('Write something!')
 
-         fetch(`https://www.googleapis.com/books/v1/volumes?q=quilting?=${inputSearch.current.value}&orderBy?=${orderByOut}&subject?=history`)
+         fetch(`https://www.googleapis.com/books/v1/volumes?q=${inputSearch.current.value}&orderBy=${orderByOut}`)
         .then((data) => data.text())
         .then(data => {
-            const bookResponse = JSON.parse(data)
-            let out = [];
-            for (let key in bookResponse.items) {
-                out.push(bookResponse.items)
-            }
-            for (let i in out) {
-                for (let k in out[i]) {
-                    toStore.push(out[i][k].volumeInfo)
-                }
-            }
-            dispatch(add(toStore))
+            const {items} = JSON.parse(data);
+            const books = items.map(({volumeInfo: item, id, selfLink}) => {return {item, id, selfLink}});
+            dispatch(add(books))
         });
     }
 
