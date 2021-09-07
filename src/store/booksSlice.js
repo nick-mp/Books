@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const taskReducerSlice = createSlice({
   name: 'book',
   initialState: {
-    value: []    
+    value: []
   },
   reducers: {
     add: (state, data) => {

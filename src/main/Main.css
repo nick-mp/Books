@@ -39,3 +39,10 @@
     box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
 }
 
+.main__waiting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+
+}

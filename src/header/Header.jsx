@@ -3,6 +3,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { add } from '../store/booksSlice';
+import { load } from '../store/loadingSlice';
 
 
 export default function Header() {
@@ -14,6 +15,8 @@ export default function Header() {
 
     function fetchHandler(event) {
         event.preventDefault();
+        dispatch(load(true));
+        dispatch(add([]));
         console.log('work');
         if (inputSearch.current.value.length === 0) alert('Write something!')
 
@@ -22,7 +25,9 @@ export default function Header() {
         .then(data => {
             const {items} = JSON.parse(data);
             const books = items.map(({volumeInfo: item, id, selfLink}) => {return {item, id, selfLink}});
+            dispatch(load(false))
             dispatch(add(books))
+
         });
     }
 
