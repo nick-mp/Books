@@ -3,20 +3,15 @@ import { useSelector } from 'react-redux';
 import {selectValue} from '../store/booksSlice';
 import {selectLoad} from '../store/loadingSlice';
 import Loader from 'react-loader-spinner';
-import { useEffect } from 'react';
 
 export default function Main() {
     const loading = useSelector(selectLoad)
     let booksOut = useSelector(selectValue)
 
-    useEffect(() => {
-        console.log(loading)
-    }, [loading])
-
     if (booksOut.length === 0) 
         return <div>Начните поиск</div>
     else {
-        if(loading == true) {return (
+        if(loading === true) {return (
             <div className="main__waiting">
                 <Loader type="Grid" color="blue" height={100} width={100}/>
             </div>)}
