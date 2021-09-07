@@ -54,3 +54,7 @@
     display: block;
     color: rgb(100, 100, 100);
   }
+
+.main__hide {
+    display: none !important;
+}

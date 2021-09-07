@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const taskResultSlice = createSlice({
   name: 'result',
   initialState: {
-    result : 0    
+    result : 30    
   },
   reducers: {
     count: (state, data) => {
