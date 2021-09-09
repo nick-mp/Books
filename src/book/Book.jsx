@@ -1,14 +1,12 @@
 import './Book.css';
-//import { useSelector } from 'react-redux';
-//import {selectValue} from '../store/booksSlice'
+import { /* useParams, */ Link } from 'react-router-dom';
 
 export default function Book() {
-    //const booksOut = useSelector(selectValue) // получаем данные из store
 
     return (
         <>
         
-            <span>Назад</span>
+            <Link to="/">Назад</Link>
             <div className="book">
                 <div className="book__img">
                     <img src="" className="book__depicture" alt="Обложка книги" />

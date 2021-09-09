@@ -1,43 +1,57 @@
 import './Header.css';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { add } from '../store/booksSlice';
 import { load } from '../store/loadingSlice';
 import { count } from '../store/resultSlice';
 import { selectCards } from '../store/CardsSlice';
 import { useSelector } from 'react-redux';
+import { cards, start } from '../store/CardsSlice'
 
 export default function Header() {
     const inputSearch = useRef('');
     const orderBy = useRef();
     const dispatch = useDispatch();
-    const cards = useSelector(selectCards)
-    let orderByOut = 'relevance'
-    console.log(cards);
+    const cardsStore = useSelector(selectCards);
+    const [dataFetch, setDataFetch] = useState([]);
+    const [dataItems, setDataItems] = useState(0);
+    const [orderByOut, setOrderByOut] = useState('newest')
     
-    function fetchHandler(event) {
-    event.preventDefault();
-    dispatch(load('waiting'));
-    dispatch(add([]));
+    useEffect(() => {
+        console.log('work effect carsStore =', cardsStore)
+        if (cardsStore < 10) return
 
-    if (inputSearch.current.value.length === 0) alert('Write something!')
-
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${inputSearch.current.value}&orderBy=${orderByOut}&maxResults=${cards}`)
-    .then((data) => data.text())
-    .then(data => {
+        if (inputSearch.current.value.length === 0) alert('Write something!')
+        
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${inputSearch.current.value}&orderBy=${orderByOut}&startIndex=0&maxResults=${cardsStore}`)
+        .then((data) => data.text())
+        .then(data => {
         const {items} = JSON.parse(data);
         const books = items.map(({volumeInfo: item, id, selfLink}) => {return {item, id, selfLink}});
         const {totalItems} = JSON.parse(data);
-        dispatch(count(totalItems))
-        dispatch(load('hide'))
-        dispatch(add(books))
-        });
+        setDataFetch(books);
+        setDataItems({totalItems}.totalItems)
+    });
+    
+    }, [cardsStore, orderByOut]) 
+
+    dispatch(add(dataFetch));
+    dispatch(count(dataItems));
+
+    function searchHandler () {
+        //event.preventDefault();
+        //window.location.reload();
+        dispatch(add([]));
+        dispatch(start(0))
+        dispatch(cards(10));
+        dispatch(load('waiting'))
+        console.log('press Search')
     }
 
     function sortingHandler () {
-        if (orderBy.current.options.selectedIndex === 1) orderByOut = 'newest';
-        else   orderByOut = 'relevance';
-    }
+        if (orderBy.current.options.selectedIndex === 1) setOrderByOut('newest');
+        else   setOrderByOut('relevance');
+     }
 
     return (
         <div className="container">
@@ -45,7 +59,7 @@ export default function Header() {
                 <form action="">
                     <h2 className="header__title">Search for books</h2>
                     <input type="text" defaultValue = "dogs" className="header__search" placeholder="some title" ref={inputSearch}/>
-                    <button type="submit" className="header__btn-search" onClick={fetchHandler}>Search</button>    
+                    <button type="submit" className="header__btn-search" onClick={searchHandler}>Search</button>    
                     <div>
                     <span className="header__choice-name">Categories</span>
                      <select className="header__choice" name="categories" id="1">
